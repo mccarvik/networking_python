@@ -1,6 +1,8 @@
 import sys, pdb, gzip
-from urllib.request import urlopen, Request
+from urllib.request import urlopen, Request, build_opener, HTTPCookieProcessor
 import urllib.error
+from http.cookiejar import CookieJar
+import datetime
 
 def resp1():
     response = urlopen('http://www.debian.org')
@@ -83,6 +85,24 @@ def user_agents():
     req = Request('http://www.debian.org')
     req.add_header('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64; rv24.0)')
     response = urlopen(req)
+
+def cookies():
+    cookie_jar = CookieJar()
+    opener = build_opener(HTTPCookieProcessor(cookie_jar))
+    opener.open('http://www.github.com')
+    print(len(cookie_jar))
+    
+    cookies = list(cookie_jar)
+    print(cookies)
+    print(cookies[0].name)
+    print(cookies[0].value)
+    print(cookies[0].domain)
+    print(cookies[0].path)
+    print(cookies[0].expires)
+    print(datetime.datetime.fromtimestamp(cookies[0].expires))
+    print(cookies[0].get_nonstandard_attr('HttpOnly'))
+    print(cookies[0].secure)
+    
     
 
 if __name__ == '__main__':
@@ -92,4 +112,5 @@ if __name__ == '__main__':
     # cust_request()
     # content_compression()
     # content_negotiation()
-    user_agents()
+    # user_agents()
+    cookies()
