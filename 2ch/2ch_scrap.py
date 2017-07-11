@@ -1,6 +1,7 @@
 import sys, pdb, gzip
 from urllib.request import urlopen, Request, build_opener, HTTPCookieProcessor
 import urllib.error
+from urllib.parse import urlparse, urljoin
 from http.cookiejar import CookieJar
 import datetime
 
@@ -103,6 +104,31 @@ def cookies():
     print(cookies[0].get_nonstandard_attr('HttpOnly'))
     print(cookies[0].secure)
     
+def redirects():
+    req = Request('http://www.gmail.com')
+    response = urlopen(req)
+    print(response.url)
+    print (req.redirect_dict)
+
+def urls():
+    result = urlparse('http://www.python.org/dev/peps')
+    print(result)
+    print(result.netloc)
+    print(result.path)
+    
+    print(urlparse('http://www.python.org:8080/'))
+    
+    print(urlparse('http://www.python.org/'))
+    print(urlparse('../images/tux.png'))
+    
+    print(urljoin('http://www.debian.org', 'intro/about'))
+    print(urljoin('http://www.debian.org/intro/', 'about'))
+    print(urljoin('http://www.debian.org/intro', 'about'))
+    print(urljoin('http://www.debian.org/intro/about/', '/News'))
+    print(urljoin('http://www.debian.org/intro/about/', '../News'))
+    print(urljoin('http://www.debian.org/intro/about', '../News'))
+    print(urljoin('http://www.debian.org/about', 'http://www.python.org'))
+    
     
 
 if __name__ == '__main__':
@@ -113,4 +139,6 @@ if __name__ == '__main__':
     # content_compression()
     # content_negotiation()
     # user_agents()
-    cookies()
+    # cookies()
+    # redirects()
+    urls()
