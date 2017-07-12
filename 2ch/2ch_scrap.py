@@ -1,7 +1,7 @@
 import sys, pdb, gzip
 from urllib.request import urlopen, Request, build_opener, HTTPCookieProcessor
 import urllib.error
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urlparse, urljoin, parse_qs
 from http.cookiejar import CookieJar
 import datetime
 
@@ -128,9 +128,15 @@ def urls():
     print(urljoin('http://www.debian.org/intro/about/', '../News'))
     print(urljoin('http://www.debian.org/intro/about', '../News'))
     print(urljoin('http://www.debian.org/about', 'http://www.python.org'))
-    
-    
 
+def query_strings():
+    print(urlparse('http://docs.python.prg/3/search.html?q=urlparse&area=default'))
+    result = urlparse('http://docs.python.prg/3/search.html?q=urlparse&area=default')
+    print(parse_qs(result.query))
+    
+    result = urlparse('http://docs.python.prg/3/search.html?q=urlparse&q=urljoin')
+    print(parse_qs(result.query))
+    
 if __name__ == '__main__':
     # resp1()
     # resp_err()
@@ -141,4 +147,5 @@ if __name__ == '__main__':
     # user_agents()
     # cookies()
     # redirects()
-    urls()
+    # urls()
+    query_strings()
