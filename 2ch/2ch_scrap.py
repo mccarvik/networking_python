@@ -1,7 +1,7 @@
 import sys, pdb, gzip
 from urllib.request import urlopen, Request, build_opener, HTTPCookieProcessor
 import urllib.error
-from urllib.parse import urlparse, urljoin, parse_qs
+from urllib.parse import urlparse, urljoin, parse_qs, quote, urlencode, urlunparse
 from http.cookiejar import CookieJar
 import datetime
 
@@ -137,6 +137,30 @@ def query_strings():
     result = urlparse('http://docs.python.prg/3/search.html?q=urlparse&q=urljoin')
     print(parse_qs(result.query))
     
+def url_encoding():
+    print(quote('A duck?'))
+    path = 'pypi'
+    path_enc = quote(path)
+    query_dict = {':action': 'searc', 'term': 'Are you qutie sure thi is a cheese show?'}
+    query_enc = urlencode(query_dict)
+    print(query_enc)
+    
+    netloc = 'pypi.python.org'
+    print(urlunparse(('http', netloc, path_enc, '', query_enc, '')))
+    
+    path = '/images/users/+Zoot+/'
+    print(quote(path))
+    
+    username = '+Zoot/Dingo+'
+    path = 'images/users/{}'.format(username)
+    print(quote(path))
+    
+    username = '+Zoot/Dingo+'
+    user_encoded = quote(username, safe='')
+    path = '/'.join(('', 'images', 'users', username))
+    print(path)
+    
+    
 if __name__ == '__main__':
     # resp1()
     # resp_err()
@@ -148,4 +172,5 @@ if __name__ == '__main__':
     # cookies()
     # redirects()
     # urls()
-    query_strings()
+    # query_strings()
+    url_encoding()
