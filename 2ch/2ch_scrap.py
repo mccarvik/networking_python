@@ -1,4 +1,4 @@
-import sys, pdb, gzip
+import sys, pdb, gzip, requests
 from urllib.request import urlopen, Request, build_opener, HTTPCookieProcessor
 import urllib.error
 from urllib.parse import urlparse, urljoin, parse_qs, quote, urlencode, urlunparse
@@ -160,6 +160,67 @@ def url_encoding():
     path = '/'.join(('', 'images', 'users', username))
     print(path)
     
+def http_methods():
+    req = Request('http://www.google.com', method='HEAD')
+    response = urlopen(req)
+    print(response.status)
+    print(response.read())
+    
+    data_dict = {'P': 'Python'}
+    data = urlencode(data_dict).encode('utf-8')
+    req = Request('http://search.debian.org/cgi-bin/omega', data=data)
+    req.add_header('Content-Type', 'application/x-www-form-urlencode: charset=UTF-8')
+    response = urlopen(req)
+    print(response)
+    
+def requests_module():
+    response = requests.get('http://www.debian.org')
+    print(response.status_code)
+    print(response.reason)
+    print(response.url)
+    print(response.headers['content-type'])
+    print(response.ok)
+    print(response.is_redirect)
+    print(response.request.headers)
+    print(response.headers['content-encoding'])
+    print(response.content[0:100])
+    print(response.text[0:100])
+    print(response.encoding)
+    
+    response = requests.get('http://www.github.com')
+    print(response.cookies)
+    
+    s = requests.Session()
+    s.get('http://www.google.com')
+    response = s.get('http://www.google.com/preferences')
+    print(response)
+    
+    response = requests.head('http://www.debian.org')
+    print(response.status_code)
+    print(response.text)
+    
+    headers = {'User-Agent': 'Mozilla/5.0 Firefox 24'}
+    response = requests.get('http://www.debian.org', headers=headers)
+    print(response)
+    params = {':action': 'search', 'term': 'Are you quite sure this is a cheese sop?'}
+    response = requests.get('http://pypi.python.org/pypi', params=params)
+    print(response.url)
+    
+    data = {'P': 'Python'}
+    response = requests.post('http://search.debian.org/cgi-bin/omega', data=data)
+    print(response)
+    
+    response = requests.get('http://www.google.cm/notawebpage')
+    print(response.status_code)
+    # print(response.raise_for_status())
+    r = requests.get('http://www.google.com')
+    print(r.status_code)
+    print(r.raise_for_status())
+    
+    r = requests.get('http://192.0.2.1')
+    
+    
+    
     
 if __name__ == '__main__':
     # resp1()
@@ -173,4 +234,7 @@ if __name__ == '__main__':
     # redirects()
     # urls()
     # query_strings()
-    url_encoding()
+    # url_encoding()
+    # http_methods()
+    requests_module()
+    
