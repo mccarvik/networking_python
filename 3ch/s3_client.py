@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
 import mimetypes
 
-access_id = 'AKIAI2BMHCQMIUADHJKA'
-access_key = 'GRkZzNzYTuAQCzsMup9HOOfmgvVYAMQCybFvRnfh'
+access_id = ''
+access_key = ''
 region = 'US East (N. Virginia)'
 endpoint = 's3-{}.amazonaws.com'.format(region)
 auth = requests_aws4auth.AWS4Auth(access_id, access_key, region, 's3')
