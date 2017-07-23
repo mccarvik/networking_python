@@ -115,6 +115,14 @@ def html_parsing():
     print([e.tag for e in root])
     print(root.find('head').find('title').text)
     print(root.find('body').findall('div')[1].find('p').text)
+    
+    print(root.xpath('body'))
+    print(root.xpath('body/div'))
+    print(root.xpath('//h1'))
+    print(root.find('head').xpath('.//h1'))
+    print(root.xpath('//div[@id="content"]'))
+    print(root.xpath('//div[h1]'))
+    print(root.xpath('body/div[2]'))
 
 
 if __name__ == '__main__':
