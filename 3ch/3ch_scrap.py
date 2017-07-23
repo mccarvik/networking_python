@@ -5,6 +5,7 @@ import xml.dom.minidom as minidom
 import requests
 import requests_aws4auth
 import boto
+from lxml.etree import HTML
 
 
 
@@ -35,12 +36,11 @@ def element_tree():
     text = ET.tostring(name, encoding='utf-8')
     
     
-    
 def xml_pprint(element):
     s = ET.tostring(element)
     print(minidom.parseString(s).toprettyxml())
     
-
+    
 def handling_errors():
     auth = requests_aws4auth.AWS4Auth('<ID>', '', 'eu-west-1', '')
     r = requests.get('http://s3.eu-west-1.amazonaws.com', auth=auth)
@@ -72,6 +72,7 @@ def boto_demo():
     key = bucket.get_key('parrot.txt')
     key.get_contents_to_filename('~/parrot.txt')
     key.set_acl('public-read')
+    
     
 def json_demo():
     l = ['a', 'b', 'c']
@@ -108,11 +109,17 @@ def json_demo():
     print(json.dumps(list(j)))
     
     
-    
+def html_parsing():
+    response = requests.get('https://www.debian.org/releases/stable')
+    root = HTML(response.content)
+    print([e.tag for e in root])
+    print(root.find('head').find('title').text)
+    print(root.find('body').findall('div')[1].find('p').text)
 
 
 if __name__ == '__main__':
     # element_tree()
     # handling_errors()
     # boto_demo()
-    json_demo()
+    # json_demo()
+    html_parsing()
