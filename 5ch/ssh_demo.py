@@ -1,7 +1,8 @@
 import getpass
 import paramiko
 
-HOSTNAME = 'localhost'
+# HOSTNAME = 'localhost'
+HOSTNAME = '192.168.43.130'
 PORT = 22
 
 def run_ssh_cmd(username, password, cmd, hostname=HOSTNAME, port=PORT):
@@ -15,6 +16,6 @@ def run_ssh_cmd(username, password, cmd, hostname=HOSTNAME, port=PORT):
 if __name__ == '__main__':
     username = input("Enter username: ")
     password = getpass.getpass(prompt='Enter password: ')
-    cmd = 'ls -l /dev'
+    cmd = 'ls'
     run_ssh_cmd(username, password, cmd)
     
