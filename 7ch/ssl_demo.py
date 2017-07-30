@@ -41,7 +41,7 @@ if __name__ == '__main__':
     cert = ssl_socket.getpeercert()
     pprint(cert)
     if not cert or ('commonName', TARGET_HOST) not in cert['subject'][4]:
-        raise Exception("Invalid SSL cert for host %s. Check if this is a man-in-the-middle attack!")
+        raise Exception("Invalid SSL cert for host %s. Check if this is a man-in-the-middle attack!" % target_host)
     ssl_socket.write('GET / \n'.encode('utf-8'))
     # pprint(ssl_socket.recv(1024).split(b"\r\n"))
     ssl_socket.close()
