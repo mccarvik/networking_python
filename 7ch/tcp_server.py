@@ -7,10 +7,10 @@ BUFSIZ = 1024
 ADDR = (HOST, PORT)
 
 if __name__ == '__main__':
-    server_socket = socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bond(ADDR)
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(ADDR)
     server_socket.listen(5)
-    server_socket.setsockopt(socket.SQL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     
     while True:
         print('Server waiting for connection...')
