@@ -14,6 +14,7 @@ def handle_client_recv(sock, addr):
 
     """
     rest = bytes()
+    print('receiving message from client')
     while True:
         try:
             (msgs, rest) = tincanchat.recv_msgs(sock, rest)
@@ -21,7 +22,8 @@ def handle_client_recv(sock, addr):
             handle_disconnect(sock, addr)
             break
         for msg in msgs:
-            msg = '{}: {}'.format(addr, msg)
+            # adding '!!!' to show message has gotten to server
+            msg = '{}: {}'.format(addr, msg) + "!!!"
             print(msg)
             broadcast_msg(msg)
 
@@ -74,6 +76,7 @@ if __name__ == '__main__':
         client_sock,addr = listen_sock.accept()
         q = queue.Queue()
         with lock:
+            print('lock acquired')
             send_queues[client_sock.fileno()] = q
         recv_thread = threading.Thread(target=handle_client_recv,
                                        args=[client_sock, addr],

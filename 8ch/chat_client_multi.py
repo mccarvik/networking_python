@@ -14,6 +14,7 @@ def handle_input(sock):
             sock.close()
             break
         try:
+            print('sending msg')
             tincanchat.send_msg(sock, msg)  # Blocks until sent
         except (BrokenPipeError, ConnectionError):
             sys.stdout.flush()
