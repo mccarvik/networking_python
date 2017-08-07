@@ -1,0 +1,14 @@
+body          { font-family: Sans-Serif; background: white; }
+h1            { color: #38b; }
+h2            { color: #555; }
+pre           { margin: 0px; font-size: 1.2em; }
+.menuitem     { float: left; margin: 1px 1px 0px 0px; }
+.link         { width: 100px; padding: 5px 25px; background: #eee; }
+.link a       { text-decoration: none; color: #555; }
+.link a:hover { font-weight: bold; color: #38b; }
+.nav          { float: right; margin-left: 1px; padding-left: 15px; }
+#search       { margin-right: 20px; padding-top: 4px; }
+table         { border-spacing: 1px; margin-bottom: 15px; }
+td            { padding-left: 10px; }
+.hi           { font-weight: bold; }
+.messages p   { display: inline-block; margin: 0px 15px; padding: 10px; font-weight: bold; color: #38b; background: #ffffe0; }

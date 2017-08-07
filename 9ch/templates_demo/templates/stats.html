@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% block body %}
+    <h1>Python Builtins Docstrings</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="messages">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <h2>Docstring views:</h2>
+    {% if stats|length == 0 %}
+        <p>No functions viewed!</p>
+    {% else %}
+        <table id="searchresults">
+        {% for item in stats|sort|reverse %}
+            <tr>
+                <td class="link menuitem">
+                    <a href="/functions/{{ item[1] }}">{{ item[1] }}</a>
+                </td>
+                <td>{{ item[0] }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <form action="/stats" method="POST">
+        <input type="hidden" name="reset"/>
+        <input type="submit" value="Clear stats"/>
+    </form>
+{% endblock %}
